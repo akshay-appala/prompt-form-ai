@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import connectDB from "./config/db.js";
 
 const app = express();
 
@@ -16,9 +17,15 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
+// Start server after connecting to MongoDB
+const startServer = async () => {
+  await connectDB();
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+  const PORT = process.env.PORT || 5000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+};
+
+startServer();
