@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import Cookies from "js-cookie";
 import "../styles/Auth.css";
 
@@ -14,6 +15,8 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { setUser, setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,6 +40,9 @@ function Login() {
       }
 
       Cookies.set("token", data.token, { expires: 1 });
+
+      setUser(data.user);
+      setIsAuthenticated(true);
 
       navigate("/dashboard");
     } catch (error) {
