@@ -1,0 +1,56 @@
+.create-form-page {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.create-form-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.create-form-content h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+
+.create-form-content > p {
+  margin: 0 0 32px;
+  color: var(--color-text-secondary);
+}
+
+.create-form-box {
+  padding: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.create-form-box textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  outline: none;
+}
+
+.create-form-box textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.generate-form-button {
+  margin-top: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.generate-form-button:hover {
+  background: var(--color-primary-hover);
+}

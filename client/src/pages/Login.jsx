@@ -44,7 +44,7 @@ function Login() {
       setUser(data.user);
       setIsAuthenticated(true);
 
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       setError(error.message || "Something went wrong. Please try again.");
     } finally {
