@@ -1,0 +1,80 @@
+.preview-field {
+  margin-bottom: 20px;
+}
+
+.preview-field > label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.preview-field input,
+.preview-field textarea,
+.preview-field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.preview-field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.preview-field input:focus,
+.preview-field textarea:focus,
+.preview-field select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.preview-field input[type="radio"],
+.preview-field input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.preview-field input[type="color"] {
+  width: 60px;
+  height: 42px;
+  padding: 4px;
+}
+
+.preview-field input[type="range"] {
+  padding: 0;
+}
+
+.generated-form-preview {
+  margin-top: 32px;
+  padding: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.generated-form-preview h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  color: var(--color-text);
+}
+
+.generated-form-preview > p {
+  margin: 0 0 28px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.generated-form-preview .preview-field {
+  margin-bottom: 22px;
+}
+
+.generated-form-preview .preview-field:last-child {
+  margin-bottom: 0;
+}

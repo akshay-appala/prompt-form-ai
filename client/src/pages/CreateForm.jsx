@@ -1,13 +1,39 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
+import FormField from "../components/FormField";
 import "./CreateForm.css";
 
 function CreateForm() {
   const [prompt, setPrompt] = useState("");
+  const [generatedForm, setGeneratedForm] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const token = Cookies.get("token");
 
-    console.log("Form prompt:", prompt);
+    try {
+      const response = await fetch("http://localhost:5000/api/forms/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          prompt,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to generate form.");
+      }
+
+      console.log("Generated form:", data.form);
+      setGeneratedForm(data.form);
+    } catch (error) {
+      console.error("Form generation failed:", error.message);
+    }
   };
 
   return (
@@ -29,6 +55,18 @@ function CreateForm() {
             </button>
           </form>
         </div>
+
+        {generatedForm && (
+          <section className="generated-form-preview">
+            <h2>{generatedForm.title}</h2>
+
+            <p>{generatedForm.description}</p>
+
+            {generatedForm.fields.map((field) => (
+              <FormField key={field._id || field.label} field={field} />
+            ))}
+          </section>
+        )}
       </main>
     </div>
   );
