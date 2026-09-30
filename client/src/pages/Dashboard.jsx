@@ -28,7 +28,12 @@ function Dashboard() {
         <p>Create and manage your forms in one place.</p>
 
         <section className="dashboard-actions">
-          <button className="create-form-button">+ Create New Form</button>
+          <button
+            className="create-form-button"
+            onClick={() => navigate("/create-form")}
+          >
+            + Create New Form
+          </button>
         </section>
 
         <section className="forms-section">
