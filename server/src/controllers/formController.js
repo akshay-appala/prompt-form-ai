@@ -61,3 +61,23 @@ export const generateForm = async (req, res) => {
     });
   }
 };
+
+export const getMyForms = async (req, res) => {
+  try {
+    const forms = await Form.find({
+      owner: req.user.userId,
+    }).sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      forms,
+    });
+  } catch (error) {
+    console.error("Get forms error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while fetching forms",
+    });
+  }
+};

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import FormField from "../components/FormField";
 import "./CreateForm.css";
 
 function CreateForm() {
+  const navigate = useNavigate();
+
   const [prompt, setPrompt] = useState("");
   const [generatedForm, setGeneratedForm] = useState(null);
   const [saveMessage, setSaveMessage] = useState("");
@@ -74,7 +77,7 @@ function CreateForm() {
       }
 
       console.log("Form saved:", data.form);
-      setSaveMessage("Form saved successfully.");
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       console.error("Form save failed:", error.message);
       setSaveMessage("Unable to save form. Please try again.");
