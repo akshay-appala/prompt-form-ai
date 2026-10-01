@@ -81,3 +81,31 @@ export const getMyForms = async (req, res) => {
     });
   }
 };
+
+export const getFormById = async (req, res) => {
+  try {
+    const form = await Form.findOne({
+      _id: req.params.id,
+      owner: req.user.userId,
+    });
+
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        message: "Form not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      form,
+    });
+  } catch (error) {
+    console.error("Get form error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while fetching form",
+    });
+  }
+};
