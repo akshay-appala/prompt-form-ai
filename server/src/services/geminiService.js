@@ -39,7 +39,6 @@ const formSchema = {
               "datetime",
               "select",
               "radio",
-              "checkbox",
               "color",
             ],
             description: "The HTML-style field type.",
@@ -59,7 +58,7 @@ const formSchema = {
               type: Type.STRING,
             },
             description:
-              "Options for select, radio, or checkbox fields. Use an empty array for other field types.",
+              "Options for select or radio fields. Use an empty array for other field types.",
           },
         },
         required: ["label", "type", "required", "placeholder", "options"],
@@ -81,7 +80,7 @@ Rules:
 - Generate only fields that are relevant to the user's request.
 - Use clear and concise field labels.
 - Use "required" thoughtfully based on the purpose of the form.
-- Use options for select, radio, and checkbox fields.
+- Use options for select and radio fields.
 - For all other field types, return an empty options array.
 - Do not invent unnecessary fields.
 

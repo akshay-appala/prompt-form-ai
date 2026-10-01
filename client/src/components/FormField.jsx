@@ -1,6 +1,6 @@
 import "./FormField.css";
 
-function FormField({ field, onChange }) {
+function FormField({ field, onChange, onValueChange }) {
   const { label, type, required, placeholder, options } = field;
 
   return (
@@ -26,9 +26,16 @@ function FormField({ field, onChange }) {
       </label>
 
       {type === "textarea" ? (
-        <textarea placeholder={placeholder} required={required} />
+        <textarea
+          placeholder={placeholder}
+          required={required}
+          onChange={(event) => onValueChange?.(event.target.value)}
+        />
       ) : type === "select" ? (
-        <select required={required}>
+        <select
+          required={required}
+          onChange={(event) => onValueChange?.(event.target.value)}
+        >
           <option value="">Select an option</option>
 
           {options.map((option, index) => (
@@ -46,22 +53,19 @@ function FormField({ field, onChange }) {
                 name={label}
                 value={option}
                 required={required && index === 0}
+                onChange={(event) => onValueChange?.(event.target.value)}
               />
               {option}
             </label>
           ))}
         </div>
-      ) : type === "checkbox" ? (
-        <div>
-          {options.map((option, index) => (
-            <label key={index}>
-              <input type="checkbox" value={option} />
-              {option}
-            </label>
-          ))}
-        </div>
       ) : (
-        <input type={type} placeholder={placeholder} required={required} />
+        <input
+          type={type}
+          placeholder={placeholder}
+          required={required}
+          onChange={(event) => onValueChange?.(event.target.value)}
+        />
       )}
     </div>
   );

@@ -34,8 +34,7 @@
   border-color: var(--color-primary);
 }
 
-.preview-field input[type="radio"],
-.preview-field input[type="checkbox"] {
+.preview-field input[type="radio"] {
   width: auto;
   margin-right: 8px;
 }
@@ -44,10 +43,6 @@
   width: 60px;
   height: 42px;
   padding: 4px;
-}
-
-.preview-field input[type="range"] {
-  padding: 0;
 }
 
 .generated-form-preview {
