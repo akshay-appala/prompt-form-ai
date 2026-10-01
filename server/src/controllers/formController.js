@@ -1,5 +1,6 @@
 import Form from "../models/Form.js";
 import { generateFormWithGemini } from "../services/geminiService.js";
+import Response from "../models/Response.js";
 
 export const createForm = async (req, res) => {
   try {
@@ -133,6 +134,46 @@ export const getPublicForm = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Server error while fetching public form",
+    });
+  }
+};
+
+export const createResponse = async (req, res) => {
+  try {
+    const { answers } = req.body;
+
+    if (!Array.isArray(answers)) {
+      return res.status(400).json({
+        success: false,
+        message: "Answers must be an array",
+      });
+    }
+
+    const form = await Form.findById(req.params.id);
+
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        message: "Form not found",
+      });
+    }
+
+    const response = await Response.create({
+      form: form._id,
+      answers,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Response submitted successfully",
+      response,
+    });
+  } catch (error) {
+    console.error("Create response error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while submitting response",
     });
   }
 };
