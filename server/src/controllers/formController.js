@@ -109,3 +109,30 @@ export const getFormById = async (req, res) => {
     });
   }
 };
+
+export const getPublicForm = async (req, res) => {
+  try {
+    const form = await Form.findById(req.params.id).select(
+      "title description fields",
+    );
+
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        message: "Form not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      form,
+    });
+  } catch (error) {
+    console.error("Get public form error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while fetching public form",
+    });
+  }
+};
