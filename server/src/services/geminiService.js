@@ -40,10 +40,7 @@ const formSchema = {
               "select",
               "radio",
               "checkbox",
-              "file",
-              "range",
               "color",
-              "password",
             ],
             description: "The HTML-style field type.",
           },
@@ -86,13 +83,6 @@ Rules:
 - Use "required" thoughtfully based on the purpose of the form.
 - Use options for select, radio, and checkbox fields.
 - For all other field types, return an empty options array.
-- Use "file" for requests involving resumes, documents, certificates,
-  images, portfolios, or other uploads.
-- Use "password" only when the user explicitly or clearly requests
-  password, credential, login, signup, or account-authentication functionality.
-- Do not add password fields to ordinary information, feedback,
-  registration-for-an-event, survey, or application forms unless
-  password functionality is clearly requested.
 - Do not invent unnecessary fields.
 
 User request:
