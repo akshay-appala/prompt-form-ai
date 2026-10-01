@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/AuthContext";
@@ -6,6 +7,35 @@ import "./Dashboard.css";
 function Dashboard() {
   const { user, setUser, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  const [forms, setForms] = useState([]);
+
+  useEffect(() => {
+    const fetchForms = async () => {
+      try {
+        const token = Cookies.get("token");
+
+        const response = await fetch("http://localhost:5000/api/forms", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch forms.");
+        }
+
+        setForms(data.forms);
+        console.log("My forms:", data.forms);
+      } catch (error) {
+        console.error("Failed to fetch forms:", error.message);
+      }
+    };
+
+    fetchForms();
+  }, []);
 
   const handleLogout = () => {
     Cookies.remove("token");
@@ -39,10 +69,21 @@ function Dashboard() {
         <section className="forms-section">
           <h2>Your Forms</h2>
 
-          <div className="empty-state">
-            <h3>No forms yet</h3>
-            <p>Create your first form to get started.</p>
-          </div>
+          {forms.length === 0 ? (
+            <div className="empty-state">
+              <h3>No forms yet</h3>
+              <p>Create your first form to get started.</p>
+            </div>
+          ) : (
+            <div className="forms-list">
+              {forms.map((form) => (
+                <div className="form-card" key={form._id}>
+                  <h3>{form.title}</h3>
+                  <p>{form.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
       </main>
     </div>

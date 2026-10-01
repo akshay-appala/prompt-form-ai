@@ -89,3 +89,29 @@
 .logout-button:hover {
   background: var(--color-background);
 }
+
+.forms-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.form-card {
+  padding: 20px 22px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.form-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.form-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
