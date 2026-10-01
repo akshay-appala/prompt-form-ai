@@ -7,6 +7,15 @@ function CreateForm() {
   const [prompt, setPrompt] = useState("");
   const [generatedForm, setGeneratedForm] = useState(null);
 
+  const updateField = (fieldIndex, updatedValues) => {
+    setGeneratedForm((currentForm) => ({
+      ...currentForm,
+      fields: currentForm.fields.map((field, index) =>
+        index === fieldIndex ? { ...field, ...updatedValues } : field,
+      ),
+    }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = Cookies.get("token");
@@ -62,8 +71,12 @@ function CreateForm() {
 
             <p>{generatedForm.description}</p>
 
-            {generatedForm.fields.map((field) => (
-              <FormField key={field._id || field.label} field={field} />
+            {generatedForm.fields.map((field, index) => (
+              <FormField
+                key={field._id || index}
+                field={field}
+                onChange={(updatedValues) => updateField(index, updatedValues)}
+              />
             ))}
           </section>
         )}

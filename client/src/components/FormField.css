@@ -78,3 +78,31 @@
 .generated-form-preview .preview-field:last-child {
   margin-bottom: 0;
 }
+
+.field-editor {
+  margin-bottom: 12px;
+}
+
+.field-editor > label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.field-editor input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.field-editor input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}

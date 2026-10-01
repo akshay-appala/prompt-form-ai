@@ -1,10 +1,22 @@
 import "./FormField.css";
 
-function FormField({ field }) {
+function FormField({ field, onChange }) {
   const { label, type, required, placeholder, options } = field;
 
   return (
     <div className="preview-field">
+      <div className="field-editor">
+        <label htmlFor={`field-label-${field._id || label}`}>
+          Edit Field Label
+        </label>
+
+        <input
+          id={`field-label-${field._id || label}`}
+          type="text"
+          value={label}
+          onChange={(event) => onChange({ label: event.target.value })}
+        />
+      </div>
       <label>
         {label}
         {!label.endsWith("?") && ":"}
