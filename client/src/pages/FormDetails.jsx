@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import FormField from "../components/FormField";
+import "./FormDetails.css";
 
 function FormDetails() {
   const { id } = useParams();
@@ -37,16 +39,20 @@ function FormDetails() {
   }
 
   return (
-    <main>
-      <h1>{form.title}</h1>
-      <p>{form.description}</p>
+    <div className="form-details-page">
+      <main className="form-details-content">
+        <div className="form-details-card">
+          <h1>{form.title}</h1>
+          <p className="form-details-description">{form.description}</p>
 
-      {form.fields.map((field) => (
-        <div key={field._id}>
-          <strong>{field.label}</strong>
+          <div className="form-details-fields">
+            {form.fields.map((field) => (
+              <FormField key={field._id} field={field} />
+            ))}
+          </div>
         </div>
-      ))}
-    </main>
+      </main>
+    </div>
   );
 }
 
