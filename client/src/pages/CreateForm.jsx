@@ -6,6 +6,8 @@ import "./CreateForm.css";
 function CreateForm() {
   const [prompt, setPrompt] = useState("");
   const [generatedForm, setGeneratedForm] = useState(null);
+  const [saveMessage, setSaveMessage] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const updateField = (fieldIndex, updatedValues) => {
     setGeneratedForm((currentForm) => ({
@@ -45,6 +47,42 @@ function CreateForm() {
     }
   };
 
+  const handleSaveForm = async () => {
+    setIsSaving(true);
+    setSaveMessage("");
+
+    try {
+      const token = Cookies.get("token");
+
+      const response = await fetch("http://localhost:5000/api/forms", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: generatedForm.title,
+          description: generatedForm.description,
+          fields: generatedForm.fields,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to save form.");
+      }
+
+      console.log("Form saved:", data.form);
+      setSaveMessage("Form saved successfully.");
+    } catch (error) {
+      console.error("Form save failed:", error.message);
+      setSaveMessage("Unable to save form. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="create-form-page">
       <main className="create-form-content">
@@ -78,6 +116,16 @@ function CreateForm() {
                 onChange={(updatedValues) => updateField(index, updatedValues)}
               />
             ))}
+
+            <button
+              type="button"
+              className="save-form-button"
+              onClick={handleSaveForm}
+              disabled={isSaving}
+            >
+              {isSaving ? "Saving..." : "Save Form"}
+            </button>
+            {saveMessage && <p className="save-message">{saveMessage}</p>}
           </section>
         )}
       </main>

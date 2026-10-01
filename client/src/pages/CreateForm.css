@@ -54,3 +54,26 @@
 .generate-form-button:hover {
   background: var(--color-primary-hover);
 }
+
+.save-form-button {
+  display: block;
+  margin: 28px 0 0 auto;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-form-button:hover {
+  background: var(--color-primary-hover);
+}
+
+.save-message {
+  margin: 12px 0 0;
+  text-align: right;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
