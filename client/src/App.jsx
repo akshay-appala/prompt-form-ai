@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import CreateForm from "./pages/CreateForm";
 import FormDetails from "./pages/FormDetails";
+import PublicForm from "./pages/PublicForm";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/f/:id" element={<PublicForm />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
