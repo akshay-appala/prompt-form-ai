@@ -77,7 +77,11 @@ function Dashboard() {
           ) : (
             <div className="forms-list">
               {forms.map((form) => (
-                <div className="form-card" key={form._id}>
+                <div
+                  className="form-card"
+                  key={form._id}
+                  onClick={() => navigate(`/forms/${form._id}`)}
+                >
                   <h3>{form.title}</h3>
                   <p>{form.description}</p>
                 </div>
