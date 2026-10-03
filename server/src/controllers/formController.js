@@ -97,9 +97,14 @@ export const getFormById = async (req, res) => {
       });
     }
 
+    const responses = await Response.find({
+      form: form._id,
+    }).sort({ createdAt: -1 });
+
     return res.status(200).json({
       success: true,
       form,
+      responses,
     });
   } catch (error) {
     console.error("Get form error:", error.message);
@@ -156,6 +161,24 @@ export const createResponse = async (req, res) => {
         success: false,
         message: "Form not found",
       });
+    }
+
+    const formFieldIds = form.fields.map((field) => field._id.toString());
+
+    for (const answer of answers) {
+      if (!answer.fieldId || !("value" in answer)) {
+        return res.status(400).json({
+          success: false,
+          message: "Each answer must contain fieldId and value",
+        });
+      }
+
+      if (!formFieldIds.includes(answer.fieldId.toString())) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid field ID",
+        });
+      }
     }
 
     const response = await Response.create({
