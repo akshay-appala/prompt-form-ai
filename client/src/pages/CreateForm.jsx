@@ -32,16 +32,19 @@ function CreateForm() {
 
       // POST /api/forms/generate sends the user's prompt to the backend.
       // Express passes the prompt to Gemini and returns the generated form schema.
-      const response = await fetch("http://localhost:5000/api/forms/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/forms/generate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            prompt,
+          }),
         },
-        body: JSON.stringify({
-          prompt,
-        }),
-      });
+      );
 
       const data = await response.json();
 
@@ -66,18 +69,21 @@ function CreateForm() {
 
       // POST /api/forms saves the edited form in MongoDB.
       // The backend uses the JWT to assign the authenticated user as the owner.
-      const response = await fetch("http://localhost:5000/api/forms", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/forms`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: generatedForm.title,
+            description: generatedForm.description,
+            fields: generatedForm.fields,
+          }),
         },
-        body: JSON.stringify({
-          title: generatedForm.title,
-          description: generatedForm.description,
-          fields: generatedForm.fields,
-        }),
-      });
+      );
 
       const data = await response.json();
 

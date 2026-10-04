@@ -19,11 +19,14 @@ function FormDetails() {
 
         // GET /api/forms/:id returns the form only when the JWT owner matches.
         // The response also includes submissions for that form.
-        const response = await fetch(`http://localhost:5000/api/forms/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/forms/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await response.json();
 

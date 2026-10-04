@@ -22,17 +22,20 @@ function Register() {
     try {
       // Send the registration details to the Express authentication endpoint.
       // The backend validates the data, hashes the password, and creates the user.
-      const response = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
+      );
 
       const data = await response.json();
 

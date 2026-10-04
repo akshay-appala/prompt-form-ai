@@ -20,7 +20,7 @@ function PublicForm() {
       try {
         // GET /api/forms/public/:id is intentionally public and needs no JWT.
         const response = await fetch(
-          `http://localhost:5000/api/forms/public/${id}`,
+          `${import.meta.env.VITE_API_URL}/api/forms/public/${id}`,
         );
 
         const data = await response.json();
@@ -48,7 +48,7 @@ function PublicForm() {
       // POST /api/forms/public/:id/responses accepts submissions without authentication.
       // Only the answers and their matching field IDs are sent to the backend.
       const response = await fetch(
-        `http://localhost:5000/api/forms/public/${id}/responses`,
+        `${import.meta.env.VITE_API_URL}/api/forms/public/${id}/responses`,
         {
           method: "POST",
           headers: {

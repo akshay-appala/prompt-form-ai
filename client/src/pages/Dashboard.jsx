@@ -19,11 +19,14 @@ function Dashboard() {
 
         // GET /api/forms returns only forms owned by the authenticated user.
         // The backend uses the JWT to enforce ownership before returning data.
-        const response = await fetch("http://localhost:5000/api/forms", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/forms`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await response.json();
 
