@@ -1,6 +1,6 @@
 import Form from "../models/Form.js";
-import { generateFormWithGemini } from "../services/geminiService.js";
 import Response from "../models/Response.js";
+import { generateFormWithGemini } from "../services/geminiService.js";
 
 export const createForm = async (req, res) => {
   try {
@@ -13,6 +13,7 @@ export const createForm = async (req, res) => {
       });
     }
 
+    // The authenticated user becomes the owner of the saved form.
     const form = await Form.create({
       title,
       description,
@@ -46,6 +47,7 @@ export const generateForm = async (req, res) => {
       });
     }
 
+    // The service handles the Gemini API call and returns the generated form schema.
     const form = await generateFormWithGemini(prompt.trim());
 
     return res.status(200).json({
@@ -85,6 +87,7 @@ export const getMyForms = async (req, res) => {
 
 export const getFormById = async (req, res) => {
   try {
+    // Checking both ID and owner prevents users from viewing another user's form.
     const form = await Form.findOne({
       _id: req.params.id,
       owner: req.user.userId,
@@ -118,6 +121,7 @@ export const getFormById = async (req, res) => {
 
 export const getPublicForm = async (req, res) => {
   try {
+    // Only public form data is returned; ownership information stays private.
     const form = await Form.findById(req.params.id).select(
       "title description fields",
     );
@@ -163,6 +167,7 @@ export const createResponse = async (req, res) => {
       });
     }
 
+    // Validate that every submitted answer belongs to the requested form.
     const formFieldIds = form.fields.map((field) => field._id.toString());
 
     for (const answer of answers) {

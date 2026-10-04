@@ -4,8 +4,11 @@ import Cookies from "js-cookie";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  // Store the authenticated user and global authentication state.
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Prevent protected routes from redirecting before the stored token is checked.
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
+        // GET /api/auth/me verifies the JWT and restores the current user session.
         const response = await fetch("http://localhost:5000/api/auth/me", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +58,6 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated,
         isLoading,
-        setIsLoading,
       }}
     >
       {children}

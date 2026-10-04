@@ -7,6 +7,7 @@ import "./FormDetails.css";
 function FormDetails() {
   const { id } = useParams();
 
+  // Store the saved form, its responses, and the share-link button state.
   const [form, setForm] = useState(null);
   const [responses, setResponses] = useState([]);
   const [linkCopied, setLinkCopied] = useState(false);
@@ -16,6 +17,8 @@ function FormDetails() {
       try {
         const token = Cookies.get("token");
 
+        // GET /api/forms/:id returns the form only when the JWT owner matches.
+        // The response also includes submissions for that form.
         const response = await fetch(`http://localhost:5000/api/forms/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,10 +46,16 @@ function FormDetails() {
     return field?.label;
   };
 
+  if (!form) {
+    return <p>Loading form...</p>;
+  }
+
+  // This is the public URL respondents use to open the form.
   const publicUrl = `${window.location.origin}/f/${id}`;
 
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(publicUrl);
+
     setLinkCopied(true);
 
     setTimeout(() => {
@@ -54,15 +63,13 @@ function FormDetails() {
     }, 2000);
   };
 
-  if (!form) {
-    return <p>Loading form...</p>;
-  }
-
   return (
     <div className="form-details-page">
       <main className="form-details-content">
-        <div className="form-details-card">
+        {/* Saved form preview */}
+        <section className="form-details-card">
           <h2 className="form-preview-heading">Form Preview</h2>
+
           <h1>{form.title}</h1>
 
           <p className="form-details-description">{form.description}</p>
@@ -72,9 +79,10 @@ function FormDetails() {
               <FormField key={field._id} field={field} />
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="share-card">
+        {/* Public sharing link */}
+        <section className="share-card">
           <h2>Share your form</h2>
 
           <div className="share-link">
@@ -84,9 +92,10 @@ function FormDetails() {
               {linkCopied ? "Copied!" : "Copy Link"}
             </button>
           </div>
-        </div>
+        </section>
 
-        <div className="responses-card">
+        {/* Responses submitted through the public form */}
+        <section className="responses-card">
           <h2>Responses ({responses.length})</h2>
 
           {responses.length === 0 ? (
@@ -96,19 +105,21 @@ function FormDetails() {
               <div className="response-item" key={response._id}>
                 <div className="response-header">
                   <h3>Response {index + 1}</h3>
+
                   <span>{new Date(response.createdAt).toLocaleString()}</span>
                 </div>
 
                 {response.answers.map((answer) => (
                   <div className="response-answer" key={answer.fieldId}>
                     <strong>{getFieldLabel(answer.fieldId)}</strong>
+
                     <p>{String(answer.value)}</p>
                   </div>
                 ))}
               </div>
             ))
           )}
-        </div>
+        </section>
       </main>
     </div>
   );

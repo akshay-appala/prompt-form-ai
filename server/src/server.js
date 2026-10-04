@@ -7,14 +7,19 @@ import formRoutes from "./routes/formRoutes.js";
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Allow requests only from the configured frontend origin.
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+  }),
+);
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/forms", formRoutes);
 
-// Health check route
+// Simple endpoint for checking whether the API server is running.
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
@@ -22,7 +27,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Start server after connecting to MongoDB
 const startServer = async () => {
   await connectDB();
 

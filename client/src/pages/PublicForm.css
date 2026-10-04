@@ -9,6 +9,7 @@
   padding: 48px 24px;
 }
 
+/* Main public form card */
 .public-form-card {
   padding: 32px;
   background: var(--color-surface);
@@ -33,6 +34,7 @@
   margin-top: 8px;
 }
 
+/* Submission action */
 .public-form-submit {
   display: block;
   margin: 28px 0 0 auto;
@@ -43,11 +45,10 @@
   color: white;
   font: inherit;
   font-weight: 600;
-  cursor: pointer;
 }
 
 .public-form-submit:hover {
-  opacity: 0.9;
+  background: var(--color-primary-hover);
 }
 
 .public-form-submit:disabled {
@@ -55,14 +56,16 @@
   cursor: not-allowed;
 }
 
+/* Submission error */
 .public-form-error {
   margin: 0 0 20px;
-  color: #b42318;
+  color: var(--color-error);
 }
 
+/* Submission success state */
 .public-form-success {
-  text-align: center;
   padding: 48px 32px;
+  text-align: center;
 }
 
 .public-form-success h1 {

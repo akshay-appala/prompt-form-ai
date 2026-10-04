@@ -5,8 +5,12 @@ import "./PublicForm.css";
 
 function PublicForm() {
   const { id } = useParams();
+
+  // Store the public form and the answers entered by the respondent.
   const [form, setForm] = useState(null);
   const [answers, setAnswers] = useState({});
+
+  // Track submission state so the UI can show success or errors.
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,6 +18,7 @@ function PublicForm() {
   useEffect(() => {
     const fetchForm = async () => {
       try {
+        // GET /api/forms/public/:id is intentionally public and needs no JWT.
         const response = await fetch(
           `http://localhost:5000/api/forms/public/${id}`,
         );
@@ -40,6 +45,8 @@ function PublicForm() {
     setIsSubmitting(true);
 
     try {
+      // POST /api/forms/public/:id/responses accepts submissions without authentication.
+      // Only the answers and their matching field IDs are sent to the backend.
       const response = await fetch(
         `http://localhost:5000/api/forms/public/${id}/responses`,
         {
@@ -80,6 +87,7 @@ function PublicForm() {
         <main className="public-form-content">
           <div className="public-form-card public-form-success">
             <h1>Form submitted successfully</h1>
+
             <p>Thank you for your response.</p>
           </div>
         </main>
@@ -92,6 +100,7 @@ function PublicForm() {
       <main className="public-form-content">
         <div className="public-form-card">
           <h1>{form.title}</h1>
+
           <p className="public-form-description">{form.description}</p>
 
           {submitError && <p className="public-form-error">{submitError}</p>}
@@ -109,6 +118,7 @@ function PublicForm() {
                 }}
               />
             ))}
+
             <button
               type="submit"
               className="public-form-submit"

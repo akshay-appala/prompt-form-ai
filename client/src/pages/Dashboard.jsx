@@ -5,16 +5,20 @@ import { useAuth } from "../context/AuthContext";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const { user, setUser, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { user, setUser, setIsAuthenticated } = useAuth();
 
+  // Store the forms belonging to the currently logged-in user.
   const [forms, setForms] = useState([]);
 
   useEffect(() => {
     const fetchForms = async () => {
       try {
+        // Read the JWT and send it with the request to identify the current user.
         const token = Cookies.get("token");
 
+        // GET /api/forms returns only forms owned by the authenticated user.
+        // The backend uses the JWT to enforce ownership before returning data.
         const response = await fetch("http://localhost:5000/api/forms", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -28,6 +32,8 @@ function Dashboard() {
         }
 
         setForms(data.forms);
+
+        // Log temporarily for development/debugging.
         console.log("My forms:", data.forms);
       } catch (error) {
         console.error("Failed to fetch forms:", error.message);
@@ -39,29 +45,41 @@ function Dashboard() {
 
   const handleLogout = () => {
     Cookies.remove("token");
+
+    // Clear the global authentication state before returning to Login.
     setUser(null);
     setIsAuthenticated(false);
+
     navigate("/login", { replace: true });
+  };
+
+  const handleCreateForm = () => {
+    navigate("/create-form");
+  };
+
+  const handleOpenForm = (formId) => {
+    navigate(`/forms/${formId}`);
   };
 
   return (
     <div className="dashboard-page">
       <header className="dashboard-header">
         <h2>prompt-form-ai</h2>
+
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
       </header>
 
       <main className="dashboard-content">
-        <h1>Welcome, {user?.name}!</h1>
-        <p>Create and manage your forms in one place.</p>
+        <section className="dashboard-intro">
+          <h1>Welcome, {user?.name}!</h1>
+
+          <p>Create and manage your forms in one place.</p>
+        </section>
 
         <section className="dashboard-actions">
-          <button
-            className="create-form-button"
-            onClick={() => navigate("/create-form")}
-          >
+          <button className="create-form-button" onClick={handleCreateForm}>
             + Create New Form
           </button>
         </section>
@@ -80,7 +98,7 @@ function Dashboard() {
                 <div
                   className="form-card"
                   key={form._id}
-                  onClick={() => navigate(`/forms/${form._id}`)}
+                  onClick={() => handleOpenForm(form._id)}
                 >
                   <h3>{form.title}</h3>
                   <p>{form.description}</p>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import Cookies from "js-cookie";
+import { useAuth } from "../context/AuthContext";
 import "../styles/Auth.css";
 
 function Login() {
@@ -9,14 +9,13 @@ function Login() {
   const message = location.state?.message;
 
   const navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useAuth();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
+  // Form values and UI state.
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const { setUser, setIsAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +24,8 @@ function Login() {
     setError("");
 
     try {
+      // Send the login credentials to the Express authentication endpoint.
+      // The backend verifies the password and returns a JWT on success.
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
@@ -56,14 +57,17 @@ function Login() {
     <div className="auth-container">
       <div className="auth-card">
         <h1>Welcome Back</h1>
+
         <p className="auth-subtitle">Log in to your prompt-form-ai account</p>
 
         {message && <p className="success-message">{message}</p>}
+
         {error && <p className="error-message">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
+
             <input
               id="email"
               type="email"
@@ -76,6 +80,7 @@ function Login() {
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
+
             <input
               id="password"
               type="password"

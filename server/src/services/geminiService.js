@@ -4,6 +4,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+// Structured output keeps Gemini's response predictable for the frontend and database.
 const formSchema = {
   type: Type.OBJECT,
   properties: {
@@ -93,5 +94,6 @@ ${prompt}
     },
   });
 
+  // The structured response is parsed before being returned to the controller.
   return JSON.parse(response.text);
 };

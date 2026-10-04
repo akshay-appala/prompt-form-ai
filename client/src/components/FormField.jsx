@@ -3,6 +3,10 @@ import "./FormField.css";
 function FormField({ field, onChange, onValueChange }) {
   const { label, type, required, placeholder, options } = field;
 
+  const handleValueChange = (event) => {
+    onValueChange?.(event.target.value);
+  };
+
   return (
     <div className="preview-field">
       {onChange && (
@@ -19,6 +23,7 @@ function FormField({ field, onChange, onValueChange }) {
           />
         </div>
       )}
+
       <label>
         {label}
         {!label.endsWith("?") && ":"}
@@ -29,13 +34,10 @@ function FormField({ field, onChange, onValueChange }) {
         <textarea
           placeholder={placeholder}
           required={required}
-          onChange={(event) => onValueChange?.(event.target.value)}
+          onChange={handleValueChange}
         />
       ) : type === "select" ? (
-        <select
-          required={required}
-          onChange={(event) => onValueChange?.(event.target.value)}
-        >
+        <select required={required} onChange={handleValueChange}>
           <option value="">Select an option</option>
 
           {options.map((option, index) => (
@@ -45,7 +47,7 @@ function FormField({ field, onChange, onValueChange }) {
           ))}
         </select>
       ) : type === "radio" ? (
-        <div>
+        <div className="radio-options">
           {options.map((option, index) => (
             <label key={index}>
               <input
@@ -53,7 +55,7 @@ function FormField({ field, onChange, onValueChange }) {
                 name={label}
                 value={option}
                 required={required && index === 0}
-                onChange={(event) => onValueChange?.(event.target.value)}
+                onChange={handleValueChange}
               />
               {option}
             </label>
@@ -64,7 +66,7 @@ function FormField({ field, onChange, onValueChange }) {
           type={type}
           placeholder={placeholder}
           required={required}
-          onChange={(event) => onValueChange?.(event.target.value)}
+          onChange={handleValueChange}
         />
       )}
     </div>

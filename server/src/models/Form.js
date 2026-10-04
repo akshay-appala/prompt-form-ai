@@ -7,20 +7,24 @@ const fieldSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+
     type: {
       type: String,
       required: true,
       trim: true,
     },
+
     required: {
       type: Boolean,
       default: false,
     },
+
     placeholder: {
       type: String,
       default: "",
       trim: true,
     },
+
     options: {
       type: [String],
       default: [],
@@ -36,15 +40,19 @@ const formSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+
     description: {
       type: String,
       default: "",
       trim: true,
     },
+
     fields: {
       type: [fieldSchema],
       default: [],
     },
+
+    // Links each form to its authenticated owner for access control.
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

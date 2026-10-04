@@ -6,6 +6,8 @@ const answerSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
+
+    // Mixed allows responses from different form field types.
     value: {
       type: mongoose.Schema.Types.Mixed,
       default: "",
@@ -16,11 +18,13 @@ const answerSchema = new mongoose.Schema(
 
 const responseSchema = new mongoose.Schema(
   {
+    // Each response belongs to one saved form.
     form: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Form",
       required: true,
     },
+
     answers: {
       type: [answerSchema],
       default: [],

@@ -5,8 +5,8 @@
 .preview-field > label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 600;
   color: var(--color-text);
+  font-weight: 600;
 }
 
 .preview-field input,
@@ -19,7 +19,6 @@
   background: var(--color-surface);
   color: var(--color-text);
   font: inherit;
-  box-sizing: border-box;
 }
 
 .preview-field textarea {
@@ -34,9 +33,22 @@
   border-color: var(--color-primary);
 }
 
-.preview-field input[type="radio"] {
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+.radio-options input[type="radio"] {
   width: auto;
-  margin-right: 8px;
+  margin: 0;
 }
 
 .preview-field input[type="color"] {
@@ -45,35 +57,7 @@
   padding: 4px;
 }
 
-.generated-form-preview {
-  margin-top: 32px;
-  padding: 32px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-}
-
-.generated-form-preview h2 {
-  margin: 0 0 8px;
-  font-size: 24px;
-  color: var(--color-text);
-}
-
-.generated-form-preview > p {
-  margin: 0 0 28px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-}
-
-.generated-form-preview .preview-field {
-  margin-bottom: 22px;
-}
-
-.generated-form-preview .preview-field:last-child {
-  margin-bottom: 0;
-}
-
+/* Editable label shown only when Create Form passes onChange. */
 .field-editor {
   margin-bottom: 12px;
 }
@@ -81,9 +65,9 @@
 .field-editor > label {
   display: block;
   margin-bottom: 6px;
+  color: var(--color-text-secondary);
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
 }
 
 .field-editor input {
@@ -94,7 +78,6 @@
   background: var(--color-background);
   color: var(--color-text);
   font: inherit;
-  box-sizing: border-box;
 }
 
 .field-editor input:focus {

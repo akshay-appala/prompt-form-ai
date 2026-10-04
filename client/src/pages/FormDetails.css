@@ -9,12 +9,25 @@
   padding: 48px 24px;
 }
 
-.form-details-card {
-  padding: 32px;
+/* Shared card styling for the form, sharing, and response sections */
+.form-details-card,
+.share-card,
+.responses-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
+}
+
+/* Form preview */
+.form-details-card {
+  padding: 32px;
+}
+
+.form-preview-heading {
+  margin: 0 0 20px;
+  font-size: 18px;
+  color: var(--color-text-secondary);
 }
 
 .form-details-card h1 {
@@ -33,19 +46,60 @@
   margin-top: 8px;
 }
 
+/* Share section */
+.share-card {
+  margin-top: 24px;
+  padding: 24px 32px;
+}
+
+.share-card h2,
+.responses-card h2 {
+  margin: 0 0 16px;
+  color: var(--color-text);
+}
+
+.share-card h2 {
+  font-size: 20px;
+}
+
+.share-link {
+  display: flex;
+  gap: 12px;
+}
+
+.share-link input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text-secondary);
+  font: inherit;
+}
+
+.share-link button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+}
+
+.share-link button:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Responses section */
 .responses-card {
   margin-top: 24px;
   padding: 32px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
 }
 
 .responses-card h2 {
-  margin: 0 0 24px;
   font-size: 24px;
-  color: var(--color-text);
 }
 
 .responses-empty {
@@ -100,56 +154,4 @@
   margin: 0;
   color: var(--color-text-secondary);
   word-break: break-word;
-}
-
-.share-card {
-  margin-top: 24px;
-  padding: 24px 32px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-}
-
-.share-card h2 {
-  margin: 0 0 16px;
-  font-size: 20px;
-  color: var(--color-text);
-}
-
-.share-link {
-  display: flex;
-  gap: 12px;
-}
-
-.share-link input {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-background);
-  color: var(--color-text-secondary);
-  font: inherit;
-}
-
-.share-link button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: var(--radius-md);
-  background: var(--color-primary);
-  color: white;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.share-link button:hover {
-  opacity: 0.9;
-}
-
-.form-preview-heading {
-  margin: 0 0 20px;
-  font-size: 18px;
-  color: var(--color-text-secondary);
 }
