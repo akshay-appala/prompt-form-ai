@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import Cookies from "js-cookie";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Auth.css";
@@ -96,7 +97,16 @@ function Login() {
           </div>
 
           <button type="submit" className="auth-button" disabled={loading}>
-            {loading ? "Logging in..." : "Log In"}
+            {loading ? (
+              <Oval
+                height={18}
+                width={18}
+                color="#ffffff"
+                ariaLabel="logging in"
+              />
+            ) : (
+              "Log In"
+            )}
           </button>
         </form>
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import FormField from "../components/FormField";
 import "./PublicForm.css";
 
@@ -78,7 +79,16 @@ function PublicForm() {
   };
 
   if (!form) {
-    return <p>Loading form...</p>;
+    return (
+      <div className="loading-container">
+        <Oval
+          height={30}
+          width={30}
+          color="#8b2f6b"
+          ariaLabel="loading public form"
+        />
+      </div>
+    );
   }
 
   if (isSubmitted) {
@@ -124,7 +134,16 @@ function PublicForm() {
               className="public-form-submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <Oval
+                  height={18}
+                  width={18}
+                  color="#ffffff"
+                  ariaLabel="submitting response"
+                />
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
+import { Oval } from "react-loader-spinner";
 import FormField from "../components/FormField";
 import "./FormDetails.css";
 
@@ -50,7 +51,11 @@ function FormDetails() {
   };
 
   if (!form) {
-    return <p>Loading form...</p>;
+    return (
+      <div className="loading-container">
+        <Oval height={30} width={30} color="#8b2f6b" ariaLabel="loading" />
+      </div>
+    );
   }
 
   // This is the public URL respondents use to open the form.

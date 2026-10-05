@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import "../styles/Auth.css";
 
 function Register() {
@@ -117,7 +118,16 @@ function Register() {
           </div>
 
           <button type="submit" className="auth-button" disabled={loading}>
-            {loading ? "Creating Account..." : "Create Account"}
+            {loading ? (
+              <Oval
+                height={18}
+                width={18}
+                color="#ffffff"
+                ariaLabel="creating account"
+              />
+            ) : (
+              "Create Account"
+            )}
           </button>
         </form>
 
